@@ -20,6 +20,17 @@ spec:
             replicas: 1
 
 
+#日志输出到prometheus,需要开通以下插件.
+#vela addon enable kube-state-metrics
+#vela addon enable node-exporter
+#vela addon enable prometheus-server thanos=true serviceType=LoadBalancer storage=5G
+#vela addon enable loki agent=vector serviceType=LoadBalancer storage=5G
+#vela addon enable grafana storage=5G
+        - type: stdout-logs
+          properties:
+            parser: nginx
+
+
 # ingress 插件解析域名,安装命令: vela addon enable ingress-nginx
         - type: gateway
           properties:
