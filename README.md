@@ -11,4 +11,6 @@ vela addon enable prometheus-server thanos=true serviceType=LoadBalancer storage
 vela addon enable loki agent=vector serviceType=LoadBalancer storage=10G
 vela addon enable grafana serviceType=LoadBalancer storage=10G
 grafana web登录： admin kubevela
+vela up -f demo.yaml
+vela delete first-vela-app -n default   #删除应用
 ```
