@@ -28,7 +28,7 @@ spec:
                 "/": 8000
 
 
-#自动扩缩容addon插件,以下是cpu到达80%,自动扩容，扩容范围1~10个pod,安装命令: vela addon enable keda ,给一定压力让pod触发： ab -n 300000 -c 200  http://test.demo.com
+#自动扩缩容addon插件,以下是cpu到达80%,自动扩容，扩容范围1~10个pod,安装命令: vela addon enable keda ,给一定压力让pod触发： ab -n 300000 -c 200  http://test.demo.com/
         - type: keda-auto-scaler
           properties:
             minReplicaCount: 1
