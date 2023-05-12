@@ -1,0 +1,46 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: demo-test
+spec:
+  components:
+    - name: oam-test
+      type: webservice
+      properties:
+        image: oamdev/hello-world
+        ports:
+         - port: 8000
+           expose: true
+#        exposeType: LoadBalancer
+        cpu: "0.5"
+        memory: "512Mi"
+      traits:
+        - type: scaler
+          properties:
+            replicas: 1
+        - type: gateway
+          properties:
+             domain: test.demo.com
+             http:
+                "/": 8000
+  policies:
+    - name: target-prod
+      type: topology
+      properties:
+        clusters: ["local"]
+        namespace: "nginx"
+    - name: deploy-ha
+      type: override
+      properties:
+        components:
+          - type: webservice
+            traits:
+              - type: scaler
+                properties:
+                  replicas: 2
+  workflow:
+    steps:
+      - name: deploy2default
+        type: deploy
+        properties:
+          policies: ["target-prod"]
